@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         if(itemThatWasClickedId == R.id.action_settings){
             Toast.makeText(MainActivity.this, "This is settings menu", Toast.LENGTH_SHORT).show();
         }
-        if (itemThatWasClickedId == R.id.action_aboutus) {
-            Toast.makeText(MainActivity.this, "This is about us menu", Toast.LENGTH_SHORT).show();
+        if (itemThatWasClickedId == R.id.action_refresh) {
+            Toast.makeText(MainActivity.this, "This is refresh  menu", Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
 
