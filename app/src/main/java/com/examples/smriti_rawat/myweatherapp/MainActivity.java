@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     }
     private void loadWeatherData(){
         showWeatherDataView();
-        String location= weatherpreferences.getPreferredWeatherLocation(this);
-        new FetchWeatherData().execute(location);
+//        String location= weatherpreferences.getPreferredWeatherLocation(this);
+        String[] geo=weatherpreferences.getLocationCoordinates(this);
+        new FetchWeatherData().execute(geo);
     }
     private void showWeatherDataView() {
         mErrorMessageDisplay.setVisibility(View.INVISIBLE);
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         protected String[] doInBackground(String... params){
             if(params.length==0) return null;
             String location=params[0];
-            URL weatherRequestUrl=NetworkUtils.buildUrl(location);
+            String lat=params[0];
+            String lon=params[1];
+            URL weatherRequestUrl=NetworkUtils.buildUrl(lat,lon);
             try{
                 String jsonWeatherResponse = NetworkUtils.getResponseFromHttpUrl(weatherRequestUrl);
                 String[] simpleJsonWeatherData = OpenWeatherJsonUtils.getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);

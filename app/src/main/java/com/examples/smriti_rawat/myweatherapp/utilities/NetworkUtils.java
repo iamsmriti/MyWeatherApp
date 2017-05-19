@@ -19,6 +19,9 @@ public final class NetworkUtils {
     private static final String DYNAMIC_WEATHER_URL =
             "https://andfun-weather.udacity.com/weather";
 
+    private static final String DYNAMIC_WEATHER_URL_NEW =
+            "http://api.openweathermap.org/data/2.5/forecast/daily";
+
     private static final String STATIC_WEATHER_URL =
             "https://andfun-weather.udacity.com/staticweather";
 
@@ -35,6 +38,7 @@ public final class NetworkUtils {
     private static final String format = "json";
     /* The units we want our API to return */
     private static final String units = "metric";
+    private static final String appid = "62409bbbb7b984f1fc36458f5280311f";
     /* The number of days we want our API to return */
     private static final int numDays = 14;
 
@@ -44,6 +48,7 @@ public final class NetworkUtils {
     final static String FORMAT_PARAM = "mode";
     final static String UNITS_PARAM = "units";
     final static String DAYS_PARAM = "cnt";
+    final static String APIKEY = "appid";
 
     /**
      * Builds the URL used to talk to the weather server using a location. This location is based
@@ -52,23 +57,23 @@ public final class NetworkUtils {
      * @param locationQuery The location that will be queried for.
      * @return The URL to use to query the weather server.
      */
-    public static URL buildUrl(String locationQuery) {
-        Uri builturi = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                .appendQueryParameter(QUERY_PARAM,locationQuery)
-                .appendQueryParameter(FORMAT_PARAM,format)
-                .appendQueryParameter(UNITS_PARAM,units)
-                .appendQueryParameter(DAYS_PARAM,Integer.toString(numDays))
-                .build();
-        URL url=null;
-        try {
-            url = new URL(builturi.toString());
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        Log.v(TAG, "Built URI " + url);
-        return url;
-    }
+//    public static URL buildUrl(String locationQuery) {
+//        Uri builturi = Uri.parse(FORECAST_BASE_URL).buildUpon()
+//                .appendQueryParameter(QUERY_PARAM,locationQuery)
+//                .appendQueryParameter(FORMAT_PARAM,format)
+//                .appendQueryParameter(UNITS_PARAM,units)
+//                .appendQueryParameter(DAYS_PARAM,Integer.toString(numDays))
+//                .build();
+//        URL url=null;
+//        try {
+//            url = new URL(builturi.toString());
+//        }
+//        catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+//        Log.v(TAG, "Built URI " + url);
+//        return url;
+//    }
 
     /**
      * Builds the URL used to talk to the weather server using latitude and longitude of a
@@ -78,9 +83,24 @@ public final class NetworkUtils {
      * @param lon The longitude of the location
      * @return The Url to use to query the weather server.
      */
-    public static URL buildUrl(Double lat, Double lon) {
+    public static URL buildUrl(String lat, String lon) {
         /** This will be implemented in a future lesson **/
-        return null;
+        Uri builturi = Uri.parse(DYNAMIC_WEATHER_URL_NEW).buildUpon()
+                .appendQueryParameter(LAT_PARAM, lat)
+                .appendQueryParameter(LON_PARAM, lon)
+                .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+//                .appendQueryParameter(FORMAT_PARAM, format)
+                .appendQueryParameter(UNITS_PARAM, units)
+                .appendQueryParameter(APIKEY, appid)
+                .build();
+        URL url = null;
+        try {
+            url = new URL(builturi.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.v(TAG, "Built URI " + url);
+        return url;
     }
 
     /**
