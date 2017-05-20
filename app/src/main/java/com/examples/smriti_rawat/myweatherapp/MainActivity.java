@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
 //        Toast.makeText(context, weatherForDay, Toast.LENGTH_SHORT).show();
         Class destinationClass= DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
+        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, weatherForDay);
         startActivity(intentToStartDetailActivity);
     }
     private void showWeatherDataView() {
