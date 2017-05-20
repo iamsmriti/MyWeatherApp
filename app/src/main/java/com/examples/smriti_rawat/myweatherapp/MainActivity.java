@@ -17,8 +17,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
+
 
 public class MainActivity extends AppCompatActivity implements ForecastAdapterOnClickHandler {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
 //    private TextView mWeatherTextView;
     private RecyclerView mRecyclerView;
@@ -92,6 +96,19 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             } else {showErrorMessage();}
         }
     }
+    private void openLocationInMap() {
+        String addressString = "1600 Ampitheatre Parkway, CA";
+        Uri geoLocation = Uri.parse("geo:0,0?q=" + addressString);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(geoLocation);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
+        }
+    }
     @Override
     public  boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -101,12 +118,13 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
     public boolean onOptionsItemSelected(MenuItem item){
         int itemThatWasClickedId = item.getItemId();
 
-        if(itemThatWasClickedId == R.id.action_settings){
-            Toast.makeText(MainActivity.this, "This is settings menu", Toast.LENGTH_SHORT).show();
-        }
         if (itemThatWasClickedId == R.id.action_refresh) {
             mForecastAdapter.setWeatherData(null);
             loadWeatherData();
+            return true;
+        }
+        if(itemThatWasClickedId==R.id.action_map){
+            openLocationInMap();
             return true;
         }
         return super.onOptionsItemSelected(item);
