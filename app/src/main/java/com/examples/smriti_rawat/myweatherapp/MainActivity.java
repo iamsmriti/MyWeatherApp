@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         }
     }
     private void openLocationInMap() {
-        String addressString = "1600 Ampitheatre Parkway, CA";
+        String addressString = "Patel Nagar";
         Uri geoLocation = Uri.parse("geo:0,0?q=" + addressString);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -107,6 +107,13 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             startActivity(intent);
         } else {
             Log.d(TAG, "Couldn't call " + geoLocation.toString() + ", no receiving apps installed!");
+        }
+    }
+    private void openGithubLinkInMap(String url) {
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
     @Override
@@ -125,6 +132,11 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         }
         if(itemThatWasClickedId==R.id.action_map){
             openLocationInMap();
+            return true;
+        }
+        if(itemThatWasClickedId==R.id.action_about){
+            String githuburl = "https://github.com/iamsmriti/MyWeatherApp?files=1";
+            openGithubLinkInMap(githuburl);
             return true;
         }
         return super.onOptionsItemSelected(item);
