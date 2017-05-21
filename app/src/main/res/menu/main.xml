@@ -13,8 +13,13 @@
         android:title="@string/action_about"
         app:showAsAction="never" />
     <item
+        android:id="@+id/action_aboutme"
+        android:title="@string/action_aboutme"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
         app:showAsAction="always"/>
+
 
 </menu>

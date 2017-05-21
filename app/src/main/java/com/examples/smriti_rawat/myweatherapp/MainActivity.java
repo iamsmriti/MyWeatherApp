@@ -139,6 +139,14 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             openGithubLinkInMap(githuburl);
             return true;
         }
+        if(itemThatWasClickedId==R.id.action_aboutme){
+            Context context = getApplicationContext();
+            CharSequence text = "This is made by Smriti Rawat";
+            int duration = Toast.LENGTH_LONG;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }
